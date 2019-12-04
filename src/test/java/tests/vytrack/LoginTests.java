@@ -1,4 +1,4 @@
-package tests.day15;
+package tests.vytrack;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
