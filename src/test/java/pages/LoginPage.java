@@ -6,12 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.Driver;
 
-//according to page obj model design
+//according to page object model design
 //we have to create corresponded page class
-//for each page of app
+//for each page of application
 //login page = login page class
 //every page class will store webelements and methods related to that page
 public class LoginPage extends BasePage{
+
     @FindBy(id = "prependedInput") //this line will initialize web element
     public WebElement userNameInput;
 
@@ -43,4 +44,5 @@ public class LoginPage extends BasePage{
         //Keys.ENTER to replace login click
         passwordInput.sendKeys(password, Keys.ENTER);
     }
+
 }

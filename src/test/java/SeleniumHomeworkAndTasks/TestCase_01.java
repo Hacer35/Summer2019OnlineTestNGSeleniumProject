@@ -12,6 +12,10 @@ import org.testng.annotations.Test;
 import utils.BrowserFactory;
 import utils.BrowserUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TestCase_01 {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -93,31 +97,69 @@ public class TestCase_01 {
     public void Test4(){
         driver.findElement(By.linkText("Registration Form")).click();
         driver.findElement(By.xpath("//input[@class='form-control'][1]")).sendKeys("123");
-
+        String message= driver.findElement(By.xpath("//small[@data-bv-result='INVALID']")).getText();
+        Assert.assertEquals(message,"first name can only consist of alphabetical letters");
+        System.out.println(message);
     }
-    /*
 
+    /*
     Test case #5
     Step 1. Go to https://practice-cybertekschool.herokuapp.com
     Step 2. Click on “Registration Form”
     Step 3. Enter “123” into last name input box.
     Step 4. Verify that warning message is displayed:
     “The last name can only consist of alphabetical letters and dash”
+*/
+    @Test
+    public void Test5(){
+        driver.findElement(By.linkText("Registration Form")).click();
+        driver.findElement(By.xpath("//input[@name='lastname']")).sendKeys("123");
+        String message= driver.findElement(By.xpath("//small[@data-bv-result='INVALID']")).getText();
+        Assert.assertEquals(message,"The last name can only consist of alphabetical letters and dash");
+        System.out.println(message);
+    }
 
+    /*
     Test case #6
     Step 1. Go to https://practice-cybertekschool.herokuapp.com
     Step 2. Click on “Registration Form”
     Step 3. Enter “user” into username input box.
     Step 4. Verify that warning message is displayed:
     “The username must be more than 6 and less than 30 characters long”
+    */
+    @Test
+    public void Test6(){
+        driver.findElement(By.linkText("Registration Form")).click();
+        driver.findElement(By.xpath("//input[@data-bv-field='username']")).sendKeys("user");
+        String message = driver.findElement(By.xpath("//small[@data-bv-result='INVALID']")).getText();
+        Assert.assertEquals(message,"The username must be more than 6 and less than 30 characters long");
+        System.out.println(message);
+    }
 
+    /*
     Test case #7
     Step 1. Go to https://practice-cybertekschool.herokuapp.com
     Step 2. Click on “Registration Form”
     Step 3. Enter “testers@email” into email input box.
     Step 4. Verify that warning message is displayed:
     “email address is not a validEmail format is not correct”
+    */
+    @Test
+    public void Test7(){
+        driver.findElement(By.linkText("Registration Form")).click();
+        driver.findElement(By.xpath("//input[@name='email']")).sendKeys("testers@email");
+        List<WebElement> list = driver.findElements(By.xpath("//small[@data-bv-result='INVALID']"));
+        String message = "";
+        for (WebElement each : list){
+             message += each.getText();
+        }
+        Assert.assertEquals(message,"email address is not a validEmail format is not correct");
 
+        System.out.println(message);
+
+    }
+
+    /*
     Test case #8
     Step 1. Go to https://practice-cybertekschool.herokuapp.com
     Step 2. Click on “Registration Form”
@@ -125,6 +167,15 @@ public class TestCase_01 {
     Step 4. Verify that warning message is displayed:
      “Phone format is not correct”
      */
+    @Test
+    public void Test8(){
+        driver.findElement(By.linkText("Registration Form")).click();
+        driver.findElement(By.xpath("//input[@name='phone'6]")).sendKeys("5711234354");
+        String message = driver.findElement(By.xpath("//small[@data-bv-result='INVALID']")).getText();
+        Assert.assertEquals(message,"Phone format is not correct");
+        System.out.println(message);
+
+    }
 
     @AfterMethod
     public void teardown (){

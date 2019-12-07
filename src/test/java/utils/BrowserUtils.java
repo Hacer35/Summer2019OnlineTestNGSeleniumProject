@@ -1,16 +1,22 @@
 package utils;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class BrowserUtils {
+
     //It will be used to pause our test execution
     //just provide number of seconds as a parameter
-    public static void wait(int seconds){
+    public static void wait(int seconds) {
         try {
-            Thread.sleep(1000*seconds);
+            Thread.sleep(1000 * seconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -72,5 +78,36 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(Driver.get(), timeout);
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    //    PLEASE INSERT THIS METHOD INTO BROWSER UTILS
+    /*
+     * takes screenshot
+     * whenever you call this method
+     * it takes screenshot and returns location of the screenshot
+     * @param name of test or whatever your like
+     * take a name of a test and returns a path to screenshot takes
+     */
+    public static String getScreenshot(String name) {
+        // name the screenshot with the current date time to avoid duplicate name
+//        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));​
+        SimpleDateFormat df = new SimpleDateFormat("-yyyy-MM-dd-HH-mm");
+        String date = df.format(new Date());
+        // TakesScreenshot ---> interface from selenium which takes screenshots
+        TakesScreenshot ts = (TakesScreenshot) Driver.get();
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        // full path to the screenshot location
+        //where screenshot will be stored
+        //System.getProperty("user.dir") returns path to the project as a string
+        String target = System.getProperty("user.dir") + "/test-output/Screenshots/" + name + date + ".png";
+        File finalDestination = new File(target);
+        // save the screenshot to the path given
+        try {
+            FileUtils.copyFile(source, finalDestination);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return target;
+    }
+
 
 }
