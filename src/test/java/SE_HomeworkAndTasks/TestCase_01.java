@@ -1,9 +1,8 @@
-package SeleniumHomeworkAndTasks;
+package SE_HomeworkAndTasks;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -12,8 +11,6 @@ import org.testng.annotations.Test;
 import utils.BrowserFactory;
 import utils.BrowserUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TestCase_01 {
